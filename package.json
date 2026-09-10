@@ -1,0 +1,41 @@
+{
+  "name": "image-sprint",
+  "productName": "Image Sprint",
+  "version": "1.0.0",
+  "description": "A keyboard-first desktop launcher for Google Images, cutouts, and your visual library.",
+  "author": "Hasan Shaaban",
+  "license": "AGPL-3.0-only",
+  "type": "module",
+  "main": "electron/main.cjs",
+  "scripts": {
+    "dev": "vite --host 127.0.0.1",
+    "start": "vite build && electron .",
+    "build": "vite build",
+    "test": "node --test tests/*.test.mjs",
+    "pack": "vite build && electron-builder --win --dir",
+    "dist": "vite build && electron-builder --win portable",
+    "smoke": "electron . --smoke-test"
+  },
+  "dependencies": {
+    "@imgly/background-removal": "1.7.0",
+    "dotenv": "^16.6.1",
+    "lucide": "^0.468.0",
+    "onnxruntime-web": "1.21.0-dev.20250206-d981b153d3",
+    "sharp": "^0.34.3"
+  },
+  "devDependencies": {
+    "electron": "^41.0.0",
+    "electron-builder": "^26.0.12",
+    "vite": "^7.1.0"
+  },
+  "build": {
+    "appId": "inc.imagesprint.desktop",
+    "npmRebuild": false,
+    "productName": "Image Sprint",
+    "directories": { "output": "release" },
+    "files": ["dist/**/*", "electron/**/*", "package.json", "LICENSE"],
+    "asarUnpack": ["node_modules/sharp/**/*", "node_modules/@img/**/*"],
+    "win": { "target": "portable", "icon": "assets/icon.ico", "signAndEditExecutable": false },
+    "portable": { "artifactName": "Image-Sprint-${version}-Windows.exe" }
+  }
+}
